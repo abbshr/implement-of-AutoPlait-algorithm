@@ -1,0 +1,76 @@
+----------------------
+mocap and googleTrend
+----------------------
+loading...
+load dataset... 
+file: ./_dat/21_01.amc.4d (len=1285)
+duration:  1285
+dimension: 4
+Z-normalization... 
+memory allocation...
+start autoplait...
+---------
+r|m|Cost 
+---------
+1 1 8458 
+2 5 6864 
+2 5 6864 
+3 6 6448 
+3 6 6448 
+4 8 6144 
+4 8 6144 
+4 8 6144 
+==================================
+duration: 1285
+search time: 3.26348800 sec.
+total patterns: 4 
+total segments: 8 
+total cost: 6144 
+==================================
+loading...
+load dataset... 
+file: ./_dat/flus (len=472)
+duration:  472
+dimension: 4
+Z-normalization... 
+memory allocation...
+start autoplait...
+---------
+r|m|Cost 
+---------
+1 1 3344 
+2 3 3202 
+2 3 3202 
+2 3 3202 
+==================================
+duration: 472
+search time: 0.66977300 sec.
+total patterns: 2 
+total segments: 3 
+total cost: 3202 
+==================================
+loading...
+load dataset... 
+file: ./_dat/games (len=472)
+duration:  472
+dimension: 4
+Z-normalization... 
+memory allocation...
+start autoplait...
+---------
+r|m|Cost 
+---------
+1 1 4177 
+2 2 3847 
+2 2 3847 
+3 3 3724 
+3 3 3724 
+3 3 3724 
+==================================
+duration: 472
+search time: 0.71347100 sec.
+total patterns: 3 
+total segments: 3 
+total cost: 3724 
+==================================
+
