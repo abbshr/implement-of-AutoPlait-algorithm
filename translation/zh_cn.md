@@ -184,14 +184,15 @@ CutPointSearch (X, θ1, θ2, ∆) {
   θ1 = { π1, A1, B1 }, k1
   θ2 = { π2, A2, B2 }, k2
  
- 
- 
+```
+![img1](https://raw.githubusercontent.com/abbshr/implement-of-AutoPlait-algorithm/master/translation/p.png)
+![img2](https://raw.githubusercontent.com/abbshr/implement-of-AutoPlait-algorithm/master/translation/p1.png)
+
+```
  L = { l1, ..., lm-1 } 
  // 表示切点位置集合, 其中li(1 ≤ i ≤ n)为第i个切点.
  // 为两个regime的每个状态保存候选切点.
- 
- 
 ```
-
+![img3](https://raw.githubusercontent.com/abbshr/implement-of-AutoPlait-algorithm/master/translation/l.png)
 
 
