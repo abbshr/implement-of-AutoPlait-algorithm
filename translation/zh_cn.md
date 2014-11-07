@@ -186,6 +186,7 @@ CutPointSearch (X, θ1, θ2, ∆) {
  
 ```
 ![img1](https://raw.githubusercontent.com/abbshr/implement-of-AutoPlait-algorithm/master/translation/p.png)
+
 ![img2](https://raw.githubusercontent.com/abbshr/implement-of-AutoPlait-algorithm/master/translation/p1.png)
 
 ```
