@@ -206,3 +206,94 @@ CutPointSearch (X, θ1, θ2, ∆) {
 ```
 ![img3](https://raw.githubusercontent.com/abbshr/implement-of-AutoPlait-algorithm/master/translation/l.png)
 
+
+##### 算法2: (RegimeSplit)
+
+在这层循环中找出最小的建模开销:
+
+1. 通过编码开销找出段的切点
+2. 从新的段上计算Θ (使用BaumWelch推算)
+
++ 输入: X
++ 输出: m, S, θ, ∆
+
+```
+  初始化模型θ1, θ2
+  
+  while 开销↓ do
+    // 执行算法1, 查找段
+    {m1, m2, S1, S2} = CutPointSearch(X, θ1, θ2, ∆)
+    // 更新Θ
+       θ1 = BaumWelch(X[S1])
+       θ2 = BaumWelch(X[S2])
+    更新regime转换矩阵∆
+  end
+  
+  return { m1, m2, S1, S2, θ1, θ2, ∆ }
+```
+
+###### 过程解释:
+
+模型初始化
+
+从X中均匀的选择一些段, 对于每个子序列, 得到模型θs. 从而得到所有可能的{ θs1, θs2 }, 并从中选取最合适的{ θ1, θ2 }.
+```
+{ θ1, θ2 } = min CostC(X|θ1, θ2)
+```
+
+模型估计
+
+关于HMM上的k的计算.  
+如果k过小, 则模型对数据的贴近程度很弱, 并且算法可能找不出优化的段.
+同样的, 如果k过大, 则模型的表达能力变弱("过渡适配").
+
+转换矩阵元素的计算
+
+![img4](https://raw.githubusercontent.com/abbshr/implement-of-AutoPlait-algorithm/master/translation/r.png)
+
+`Σ|s| s∈S1`是属于regime θ1的段的总长度.   
+`N12`是从θ1-θ2, regime转换的次数.
+
+##### 算法3: (AutoPlait)
+
+> 完成任务: 自动化无需用户干涉, 切点定位准确, 能区分不同模式.
+
+前面研究的是对于m, r=2的情况,找到段和切点. 那么如何确定段数为m以及regime的数值r?
+
+第三个算法是一个基于栈的算法, 思想是使用贪心算法, 将一个X分成段, 并引入新的regimes(只要编码开销一直↓)
+
++ 输入: X
++ 输出: 对Bundle X的一个描述C
+
+```
+  Q = ∅  // { m, S, θ }的栈
+  S = ∅, m = 0, r = 0, S0 = { 1, n }, m0 = 1
+    θ0 = BaumWelch(X[S0]) // 估算S0的模型θ0
+  将{ m0, S0, θ0 }压入Q
+  
+  while 栈Q != ∅ do
+    将{ m0, S0, θ0 }弹出Q
+    // 尝试提取regime
+    { m1, m2, S1, S2, θ1, θ2, ∆ } = RegimeSplit(X[S0])
+    // 比较单一的regime θ0和regime 序对θ1, θ2
+    if CostT(X; S0, θ0) > CostT(X; S1, S2, θ1, θ2) then
+      // 分割regime
+      把两个entry {m1, S1, θ1}和{m2, S2, θ2}压入Q
+    else
+      // 无需分割regime
+      S = S ∪ S0
+        Θ = Θ ∪ θ0
+      r++
+      更新∆r×r
+      fi = r
+      m = m + m0
+    end
+  end
+  
+  return C = { m, r, S, Θ, F }
+```
+
+> 时间复杂度为O(n)线性增长
+
+> CutPointSearch和RegimeSplit需要O(ndk^2)时间来计算编码开销和估计模型参数. 因此复杂度为O(#iterate * ndk^2), 因为#iterate, d, k很小, 因此可以忽略不计, 复杂度为O(n).
+
